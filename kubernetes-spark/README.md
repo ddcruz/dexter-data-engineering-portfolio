@@ -4,13 +4,35 @@
 A PySpark job containerized and deployed on Kubernetes with Helm and autoscaling.
 
 ## 🏗️ Architecture Diagram
-flowchart TD
-    A[PySpark Job<br>Docker Image] --> B[Container Registry]
-    B --> C[Helm Deployment]
-    C --> D[Kubernetes Cluster<br>EKS / minikube]
-    D --> E[Spark Driver Pod]
-    D --> F[Spark Executor Pods]
-    F --> G[Delta Lake / Cloud Storage]
+
+        +----------------------+
+        | PySpark Job (Docker) |
+        +----------+-----------+
+                   |
+                   v
+        +----------------------+
+        | Container Registry   |
+        +----------+-----------+
+                   |
+                   v
+        +----------------------+
+        | Kubernetes Cluster   |
+        | (EKS / minikube)     |
+        +----------+-----------+
+                   |
+        +----------+-----------+
+        | Spark Driver Pod     |
+        +----------+-----------+
+                   |
+                   v
+        +----------------------+
+        | Spark Executor Pods  |
+        +----------+-----------+
+                   |
+                   v
+        +----------------------+
+        | Delta Lake / Storage |
+        +----------------------+
 
 
 ## 🛠️ Tech Stack

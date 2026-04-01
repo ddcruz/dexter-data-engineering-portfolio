@@ -171,108 +171,67 @@ Monitoring & SRE practices
 
 Below is a conceptual view of how these projects fit together into a modern enterprise Lakehouse ecosystem:
 
-        ┌──────────────────────────────┐
-        │        Source Systems        │
-        │ APIs | Databases | CDC | CRM │
-        └──────────────────────────────┘
-                     │
-                     ▼
-        ┌──────────────────────────────┐
-        │     Ingestion Layer          │
-        │ Airflow | ADF | Qlik | Kafka │
-        └──────────────────────────────┘
-                     │
-                     ▼
-        ┌──────────────────────────────┐
-        │     Lakehouse Storage        │
-        │   Delta Lake | OneLake       │
-        └──────────────────────────────┘
-                     │
-                     ▼
-        ┌──────────────────────────────┐
-        │   Transformation Layer       │
-        │ DLT | dbt | PySpark | DV2    │
-        └──────────────────────────────┘
-                     │
-                     ▼
-        ┌──────────────────────────────┐
-        │   ML & Analytics Layer       │
-        │ MLflow | Vector Search | BI  │
-        └──────────────────────────────┘
-                     │
-                     ▼
-        ┌──────────────────────────────┐
-        │   Monitoring & Governance    │
-        │ Unity Catalog | SRE | Cost   │
-        └──────────────────────────────┘
+                           +--------------------------------------+
+                           |            SOURCE SYSTEMS            |
+                           |--------------------------------------|
+                           |  APIs  |  Databases  |  Salesforce   |
+                           | Kafka  |  Files/Docs |  Streaming    |
+                           +------------------+-------------------+
+                                              |
+                                              v
++----------------------------------------------------------------------------------+
+|                           INGESTION & ORCHESTRATION                              |
+|----------------------------------------------------------------------------------|
+|  Airflow DAGs   |   ADF / Fabric Pipelines   |   Qlik Replicate (CDC)            |
+|  JDBC Ingestion |   API Extractors           |   Kafka / Streaming Ingest        |
++-----------------+----------------------------+-----------------------------------+
+                                              |
+                                              v
++----------------------------------------------------------------------------------+
+|                                LANDING ZONE                                      |
+|----------------------------------------------------------------------------------|
+|                     Cloud Storage (S3 / ADLS / OneLake)                          |
+|                     Delta Lake — BRONZE (Raw Ingested Data)                      |
++----------------------------------------------------------------------------------+
+                                              |
+                                              v
++----------------------------------------------------------------------------------+
+|                             TRANSFORMATION LAYER                                 |
+|----------------------------------------------------------------------------------|
+|  Databricks Notebooks (PySpark / SQL)                                            |
+|  Delta Live Tables (DLT)                                                         |
+|  dbt Models — SILVER → GOLD                                                      |
+|  Data Vault 2.0 (Hubs, Links, Satellites)                                        |
++----------------------------------------------------------------------------------+
+                                              |
+                                              v
++----------------------------------------------------------------------------------+
+|                         ADVANCED ANALYTICS & MACHINE LEARNING                    |
+|----------------------------------------------------------------------------------|
+|  MLflow Tracking & Model Registry                                                |
+|  Batch Inference Pipelines                                                       |
+|  Vector Search Engine (Embeddings + Index)                                       |
++----------------------------------------------------------------------------------+
+                                              |
+                                              v
++----------------------------------------------------------------------------------+
+|                                CONSUMPTION LAYER                                 |
+|----------------------------------------------------------------------------------|
+|  Gold Tables / Marts                                                             |
+|  Power BI / Tableau Dashboards                                                   |
+|  Applications / APIs (Search, ML Apps, Services)                                 |
++----------------------------------------------------------------------------------+
+                                              |
+                                              v
++----------------------------------------------------------------------------------+
+|                               PLATFORM ENGINEERING                               |
+|----------------------------------------------------------------------------------|
+|  Kubernetes / EKS (Spark on K8s)                                                 |
+|  CI/CD (GitHub Actions / Azure DevOps)                                           |
+|  Unity Catalog (Governance, Security, Lineage)                                   |
+|  Monitoring & SRE Toolkit (CloudWatch / Azure Monitor)                           |
++----------------------------------------------------------------------------------+
 
-flowchart TD
-
-%% =========================
-%% SOURCE SYSTEMS
-%% =========================
-    subgraph S[Source Systems]
-        A1[APIs]
-        A2[Databases<br>Postgres / SQL Server]
-        A3[Salesforce CRM]
-        A4[Streaming Sources<br>Kafka/MSK]
-        A5[Files / Documents]
-    end
-
-%% =========================
-%% INGESTION LAYER
-%% =========================
-    subgraph I[Ingestion & Orchestration Layer]
-        B1[Airflow DAGs<br>Orchestration]
-        B2[ADF / Fabric Pipelines]
-        B3[Qlik Replicate<br>CDC]
-        B4[JDBC Ingestion<br>PySpark]
-        B5[API Extraction Scripts]
-        B6[Kafka / Streaming Ingest]
-    end
-
-%% =========================
-%% LANDING / RAW
-%% =========================
-    subgraph L[Landing Zone]
-        C1[Cloud Storage<br>S3 / ADLS / OneLake]
-        C2[Delta Lake<br>Bronze Layer]
-    end
-
-%% =========================
-%% TRANSFORMATION LAYER
-%% =========================
-    subgraph T[Transformation Layer]
-        D1[Databricks Notebooks<br>PySpark / SQL]
-        D2[Delta Live Tables<br>DLT]
-        D3[dbt Models<br>Silver → Gold]
-        D4[Data Vault 2.0<br>Hubs / Links / Satellites]
-    end
-
-%% =========================
-%% ADVANCED ANALYTICS
-%% =========================
-    subgraph A[Advanced Analytics & ML]
-        E1[MLflow Tracking<br>Experiments / Registry]
-        E2[Batch Inference Pipeline]
-        E3[Vector Search Engine<br>Embeddings + Index]
-    end
-
-%% =========================
-%% CONSUMPTION LAYER
-%% =========================
-    subgraph C[Consumption Layer]
-        F1[Gold Tables<br>Dimensional / Marts]
-        F2[Power BI / Tableau<br>Dashboards]
-        F3[Applications / APIs<br>Search / ML Apps]
-    end
-
-%% =========================
-%% PLATFORM ENGINEERING
-%% =========================
-    subgraph P[Platform Engineering]
-        G1[Kubernetes / EKS<br>Spark on K8s]
-        G2[CI/CD Pipelines
 
 📬 How to Explore This Portfolio
 

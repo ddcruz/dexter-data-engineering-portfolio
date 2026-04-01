@@ -4,13 +4,37 @@
 This project demonstrates a production-style orchestration layer using Apache Airflow to manage ingestion, transformation, and validation workflows across Databricks and cloud storage.
 
 ## 🏗️ Architecture Diagram
-flowchart TD
-    A[API / Source Systems] --> B[Airflow DAG<br>Ingestion Task]
-    B --> C[Airflow DAG<br>Transform Task]
-    C --> D[Databricks Notebook<br>DLT / PySpark]
-    D --> E[Delta Lake<br>Bronze/Silver/Gold]
-    E --> F[Validation Task<br>Data Quality Checks]
-    F --> G[Downstream Consumers<br>BI / ML / Apps]
+
+        +----------------------+
+        |   API / Source Data  |
+        +----------+-----------+
+                   |
+                   v
+        +----------------------+
+        |   Airflow Ingestion  |
+        |        Task          |
+        +----------+-----------+
+                   |
+                   v
+        +----------------------+
+        | Airflow Transform    |
+        |   (Databricks Job)   |
+        +----------+-----------+
+                   |
+                   v
+        +----------------------+
+        |   Delta Lake (Bronze)|
+        +----------+-----------+
+                   |
+                   v
+        +----------------------+
+        | Data Quality Checks  |
+        +----------+-----------+
+                   |
+                   v
+        +----------------------+
+        |  Silver / Gold Data  |
+        +----------------------+
 
 
 ## 🛠️ Tech Stack

@@ -4,11 +4,27 @@
 A vector search engine using embeddings and Databricks Vector Index (or FAISS).
 
 ## 🏗️ Architecture Diagram
-flowchart TD
-    A[Raw Text / Documents] --> B[Embedding Generation<br>HuggingFace / OpenAI]
-    B --> C[Vector Index<br>Databricks / FAISS]
-    C --> D[Similarity Search API]
-    D --> E[Applications<br>RAG / Search / Recommendations]
+
+        +----------------------+
+        |  Raw Text / Docs     |
+        +----------+-----------+
+                   |
+                   v
+        +----------------------+
+        | Embedding Generator  |
+        | (HF / OpenAI)        |
+        +----------+-----------+
+                   |
+                   v
+        +----------------------+
+        | Vector Index         |
+        | (FAISS / Databricks) |
+        +----------+-----------+
+                   |
+                   v
+        +----------------------+
+        | Similarity Search API|
+        +----------------------+
 
 
 ## 🛠️ Tech Stack

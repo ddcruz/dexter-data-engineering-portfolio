@@ -4,12 +4,27 @@
 A JDBC-based ingestion pipeline with incremental loads and schema evolution handling.
 
 ## 🏗️ Architecture Diagram
-flowchart TD
-    A[PostgreSQL] --> B[JDBC Ingestion<br>PySpark]
-    B --> C[Delta Lake<br>Bronze]
-    C --> D[Transformations<br>Silver]
-    D --> E[Aggregations<br>Gold]
-    E --> F[BI / ML Consumers]
+
+        +----------------------+
+        |    PostgreSQL        |
+        +----------+-----------+
+                   |
+                   v
+        +----------------------+
+        | JDBC Ingestion       |
+        | (PySpark)            |
+        +----------+-----------+
+                   |
+                   v
+        +----------------------+
+        | Delta Lake (Bronze)  |
+        +----------+-----------+
+                   |
+                   v
+        +----------------------+
+        | Transformations      |
+        | (Silver / Gold)      |
+        +----------------------+
 
 
 ## 🛠️ Tech Stack

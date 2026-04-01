@@ -4,15 +4,35 @@
 A DV2 warehouse built on Databricks using Hubs, Links, and Satellites with automated loading patterns.
 
 ## 🏗️ Architecture Diagram
-flowchart TD
-    A[Raw Data] --> B[Hubs<br>Business Keys]
-    A --> C[Links<br>Relationships]
-    A --> D[Satellites<br>Context & History]
-    B --> E[DV2 Integration Layer]
-    C --> E
-    D --> E
-    E --> F[Business Vault<br>Derived Structures]
-    F --> G[Information Marts<br>Dimensional / Gold Layer]
+
+        +----------------------+
+        |     Raw Data         |
+        +----------+-----------+
+                   |
+                   v
+        +----------------------+
+        |       Hubs           |
+        +----------+-----------+
+                   |
+                   v
+        +----------------------+
+        |       Links          |
+        +----------+-----------+
+                   |
+                   v
+        +----------------------+
+        |     Satellites       |
+        +----------+-----------+
+                   |
+                   v
+        +----------------------+
+        |   Business Vault     |
+        +----------+-----------+
+                   |
+                   v
+        +----------------------+
+        |  Information Marts   |
+        +----------------------+
 
 
 ## 🛠️ Tech Stack

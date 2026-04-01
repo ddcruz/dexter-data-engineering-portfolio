@@ -4,13 +4,30 @@
 A Fabric Lakehouse + Warehouse implementation with OneLake ingestion and Fabric Pipelines.
 
 ## 🏗️ Architecture Diagram
-flowchart TD
-    A[Source Data] --> B[OneLake Storage]
-    B --> C[Fabric Lakehouse<br>Tables & Files]
-    C --> D[Fabric Warehouse<br>SQL Endpoint]
-    C --> E[Fabric Pipelines<br>Orchestration]
-    D --> F[Power BI Reports]
-    E --> C
+
+        +----------------------+
+        |     Source Data      |
+        +----------+-----------+
+                   |
+                   v
+        +----------------------+
+        |     OneLake          |
+        +----------+-----------+
+                   |
+                   v
+        +----------------------+
+        |  Fabric Lakehouse    |
+        +----------+-----------+
+                   |
+                   v
+        +----------------------+
+        | Fabric Warehouse     |
+        +----------+-----------+
+                   |
+                   v
+        +----------------------+
+        | Power BI Reporting   |
+        +----------------------+
 
 
 ## 🛠️ Tech Stack

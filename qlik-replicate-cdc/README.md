@@ -4,12 +4,32 @@
 A CDC ingestion pipeline using Qlik Replicate to land changes into Delta Lake.
 
 ## 🏗️ Architecture Diagram
-flowchart TD
-    A[Source Database<br>Postgres / SQL Server] --> B[Qlik Replicate<br>CDC Stream]
-    B --> C[Landing Zone<br>Cloud Storage]
-    C --> D[Databricks CDC Loader]
-    D --> E[Delta Lake<br>Bronze/Silver]
-    E --> F[Gold Layer / Marts]
+
+        +----------------------+
+        | Source Database      |
+        | (Postgres / SQLSrv)  |
+        +----------+-----------+
+                   |
+                   v
+        +----------------------+
+        | Qlik Replicate (CDC) |
+        +----------+-----------+
+                   |
+                   v
+        +----------------------+
+        | Landing Zone         |
+        | (Cloud Storage)      |
+        +----------+-----------+
+                   |
+                   v
+        +----------------------+
+        | Databricks CDC Load  |
+        +----------+-----------+
+                   |
+                   v
+        +----------------------+
+        | Delta Lake (Bronze)  |
+        +----------------------+
 
 
 ## 🛠️ Tech Stack

@@ -4,12 +4,32 @@
 A CRM ingestion pipeline using Salesforce REST APIs, cloud storage, and Delta Lake transformations.
 
 ## 🏗️ Architecture Diagram
-flowchart TD
-    A[Salesforce REST API] --> B[Extraction Script<br>Python]
-    B --> C[Cloud Storage<br>S3 / ADLS]
-    C --> D[Databricks Ingestion Notebook]
-    D --> E[Delta Lake<br>Bronze/Silver/Gold]
-    E --> F[Analytics / ML / Dashboards]
+
+        +----------------------+
+        | Salesforce REST API  |
+        +----------+-----------+
+                   |
+                   v
+        +----------------------+
+        | Extraction Script    |
+        +----------+-----------+
+                   |
+                   v
+        +----------------------+
+        | Cloud Storage        |
+        | (S3 / ADLS)          |
+        +----------+-----------+
+                   |
+                   v
+        +----------------------+
+        | Databricks Ingestion |
+        +----------+-----------+
+                   |
+                   v
+        +----------------------+
+        | Delta Lake Layers    |
+        | Bronze / Silver /Gold|
+        +----------------------+
 
 
 ## 🛠️ Tech Stack

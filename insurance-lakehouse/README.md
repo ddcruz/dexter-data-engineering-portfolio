@@ -4,11 +4,31 @@
 A domain-specific Lakehouse for insurance claims, policies, and underwriting with KPI dashboards.
 
 ## 🏗️ Architecture Diagram
-flowchart TD
-    A[Claims / Policies / Underwriting Data] --> B[Bronze Layer]
-    B --> C[Silver Layer<br>Cleaned & Modeled]
-    C --> D[Gold Layer<br>KPI Tables]
-    D --> E[Dashboards<br>Loss Ratio, Claim Frequency]
+
+        +----------------------+
+        | Claims / Policies    |
+        | Underwriting Data    |
+        +----------+-----------+
+                   |
+                   v
+        +----------------------+
+        | Bronze Layer         |
+        +----------+-----------+
+                   |
+                   v
+        +----------------------+
+        | Silver Layer         |
+        +----------+-----------+
+                   |
+                   v
+        +----------------------+
+        | Gold Layer (KPIs)    |
+        +----------+-----------+
+                   |
+                   v
+        +----------------------+
+        | Dashboards (BI)      |
+        +----------------------+
 
 
 ## 🛠️ Tech Stack

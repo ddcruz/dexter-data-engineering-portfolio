@@ -4,12 +4,28 @@
 A dbt project implementing Bronze → Silver → Gold transformations on Delta Lake with tests, snapshots, and documentation.
 
 ## 🏗️ Architecture Diagram
-flowchart TD
-    A[Raw Data<br>Bronze Layer] --> B[dbt Models<br>Silver Layer]
-    B --> C[dbt Models<br>Gold Layer]
-    C --> D[dbt Tests<br>Quality Gates]
-    D --> E[dbt Docs<br>Documentation Site]
-    C --> F[Analytics & BI]
+
+        +----------------------+
+        |   Bronze Layer       |
+        |   (Raw Delta)        |
+        +----------+-----------+
+                   |
+                   v
+        +----------------------+
+        |   dbt Models         |
+        |   (Silver Layer)     |
+        +----------+-----------+
+                   |
+                   v
+        +----------------------+
+        |   dbt Models         |
+        |   (Gold Layer)       |
+        +----------+-----------+
+                   |
+                   v
+        +----------------------+
+        |   dbt Tests & Docs   |
+        +----------------------+
 
 
 ## 🛠️ Tech Stack

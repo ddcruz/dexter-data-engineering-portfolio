@@ -4,12 +4,33 @@
 A monitoring and observability toolkit for Databricks pipelines, clusters, and cost optimization.
 
 ## 🏗️ Architecture Diagram
-flowchart TD
-    A[Databricks Jobs / Clusters] --> B[Metrics Export<br>REST API / Logs]
-    B --> C[Monitoring Platform<br>CloudWatch / Azure Monitor]
-    C --> D[Dashboards<br>Performance, Cost, Reliability]
-    C --> E[Alerts<br>Failures, SLAs, Cost Spikes]
-    D --> F[SRE Insights & Optimization]
+
+        +----------------------+
+        | Databricks Jobs      |
+        | Clusters / Workflows |
+        +----------+-----------+
+                   |
+                   v
+        +----------------------+
+        | Metrics Export       |
+        | (REST API / Logs)    |
+        +----------+-----------+
+                   |
+                   v
+        +----------------------+
+        | Monitoring Platform  |
+        | CloudWatch / Monitor |
+        +----------+-----------+
+                   |
+                   v
+        +----------------------+
+        | Dashboards & Alerts  |
+        +----------+-----------+
+                   |
+                   v
+        +----------------------+
+        | SRE Insights         |
+        +----------------------+
 
 
 ## 🛠️ Tech Stack
