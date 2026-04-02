@@ -2,35 +2,16 @@
 
 This project is a concrete blueprint for designing and implementing a production-style Airflow orchestration layer.
 
-## 1. Architecture
+## 1. Architecture Diagram
 
-```text
-+----------------------+       +-------------------------+
-| API / Source Data    | ----> | Ingestion Task          |
-+----------------------+       +-------------------------+
-                                                                          |
-                                                                          v
-                                                          +-------------------------+
-                                                          | Transform Task          |
-                                                          | (Databricks optional)   |
-                                                          +-------------------------+
-                                                                          |
-                                                                          v
-                                                          +-------------------------+
-                                                          | Bronze / Staging Data   |
-                                                          +-------------------------+
-                                                                          |
-                                                                          v
-                                                          +-------------------------+
-                                                          | Data Quality Checks     |
-                                                          +-------------------------+
-                                                                          |
-                                                        +---------+---------+
-                                                        |                   |
-                                                        v                   v
-                                  +------------------+   +------------------+
-                                  | Publish Gold     |   | Failure Alerting |
-                                  +------------------+   +------------------+
+```mermaid
+flowchart TD
+    A[API / Source Data] --> B[Ingestion Task]
+    B --> C[Transform Task<br/>Databricks optional]
+    C --> D[Bronze / Staging Data]
+    D --> E[Data Quality Checks]
+    E -->|Pass| F[Publish Gold]
+    E -->|Fail| G[Failure Alerting]
 ```
 
 ## 2. Design Principles
