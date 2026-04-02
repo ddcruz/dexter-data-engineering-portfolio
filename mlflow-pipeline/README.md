@@ -99,8 +99,30 @@ run_pipeline.cmd
 ```
 
 ## 🧠 Design Decisions
-- Why MLflow for tracking  
-- Registry versioning strategy  
+
+### Why MLflow for Tracking
+
+MLflow was chosen for experiment tracking because:
+
+1. **Open-source & vendor-agnostic**: No lock-in to a specific cloud provider; works locally or in any cloud environment (AWS, Azure, GCP, Databricks).
+2. **Lightweight and easy to use**: Minimal boilerplate code required to log parameters, metrics, and artifacts. Simple REST API and Python client make integration straightforward.
+3. **Local-first**: Can run fully locally with SQLite backend (`mlflow.db`) for development, then scale to production registries.
+4. **Reproducibility**: Automatically captures code versions (via git info), dependencies, and all hyperparameters, making experiments fully reproducible.
+5. **Cross-framework support**: Works with scikit-learn, TensorFlow, PyTorch, XGBoost, and many others without custom wrappers.
+6. **Model Registry**: Built-in model versioning and staging system simplifies model governance (dev → staging → production).
+7. **Web UI**: Interactive dashboard for browsing runs, comparing metrics, and visualizing training progress without additional tools.
+
+### Registry Versioning Strategy
+
+Model versions are tracked as follows:
+
+- **Version auto-incrementing**: Each training run that logs to `wine-quality-model` creates a new version (1, 2, 3, etc.).
+- **Production promotion**: Use model stages (None → Staging → Production) to control which version is used for inference.
+- **Fallback to latest**: The batch inference script resolves model versions by:
+  1. Environment variable `MODEL_VERSION` if explicitly set.
+  2. Environment variable `MODEL_STAGE` if set (e.g., "Production").
+  3. Latest version by default if neither is specified.
+- **Reproducibility**: Each registered model version preserves the exact training parameters, accuracy metric, and artifact path.  
 
 ## 🔮 Future Enhancements
 - Add real-time inference  
