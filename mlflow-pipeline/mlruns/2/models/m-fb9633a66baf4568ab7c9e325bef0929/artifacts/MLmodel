@@ -1,0 +1,33 @@
+artifact_path: file:///D:/repo/dexter-data-engineering-portfolio/mlflow-pipeline/mlruns/2/models/m-fb9633a66baf4568ab7c9e325bef0929/artifacts
+flavors:
+  python_function:
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.sklearn
+    model_path: model.pkl
+    predict_fn: predict
+    python_version: 3.11.9
+  sklearn:
+    code: null
+    pickled_model: model.pkl
+    serialization_format: cloudpickle
+    sklearn_version: 1.8.0
+    skops_trusted_types: null
+is_signature_from_type_hint: false
+mlflow_version: 3.10.1
+model_id: m-fb9633a66baf4568ab7c9e325bef0929
+model_size_bytes: 408604
+model_uuid: m-fb9633a66baf4568ab7c9e325bef0929
+prompts: null
+run_id: 88c51b50752a4f63813487e1a4f6980a
+saved_input_example_info:
+  artifact_path: input_example.json
+  serving_input_path: serving_input_example.json
+  type: ndarray
+signature:
+  inputs: '[{"type": "tensor", "tensor-spec": {"dtype": "float64", "shape": [-1, 13]}}]'
+  outputs: '[{"type": "tensor", "tensor-spec": {"dtype": "int64", "shape": [-1]}}]'
+  params: null
+type_hint_from_example: false
+utc_time_created: '2026-04-02 22:43:55.287604'
