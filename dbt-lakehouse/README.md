@@ -164,9 +164,34 @@ Use the PowerShell task runner to execute common dbt workflows with one command:
 Available tasks: `help`, `setup`, `debug`, `seed`, `run`, `test`, `snapshot`, `docs`, `clean`, `all`.
 
 ## 🧠 Design Decisions
-- Why dbt for Lakehouse modeling  
-- Naming conventions  
-- Testing strategy  
+### Why dbt for Lakehouse modeling
+This project uses dbt because it gives a reliable software engineering layer on top of Delta Lake SQL transformations.
+
+- Clear dependency graph: model lineage is explicit and easy to reason about across Bronze -> Silver -> Gold.
+- Version-controlled SQL: transformation logic is reviewed in Git instead of being hidden in notebooks.
+- Repeatable deployments: the same project can run consistently across dev/test/prod targets.
+- Built-in docs and lineage: `dbt docs` makes model intent and dependencies visible to both engineers and analysts.
+
+### Layering decisions (Bronze / Silver / Gold)
+- Bronze: lightweight typing and ingestion-ready structure from raw seed/source tables.
+- Silver: business cleaning and normalization (status standardization, quality filters, derived flags).
+- Gold: curated aggregates optimized for reporting and downstream consumption.
+
+This separation keeps each model focused on one responsibility and reduces blast radius when logic changes.
+
+### Naming conventions
+- Model names are prefixed by layer (`bronze_`, `silver_`, `gold_`) to make purpose obvious.
+- SQL files use entity-focused names (`silver_orders`, `gold_daily_sales`) for easy discoverability.
+- Schemas are aligned with layers to simplify access control, troubleshooting, and governance.
+
+### Testing strategy
+Testing is applied at multiple levels to catch issues early and protect downstream models.
+
+- Generic tests in `schema.yml` enforce structural quality (`not_null`, `unique`, `accepted_values`).
+- Singular tests validate business expectations (for example, no negative daily revenue).
+- Snapshot testing (`orders_snapshot`) preserves change history for SCD-style auditing.
+
+Together, these tests provide confidence that Gold outputs remain trustworthy for analytics and dashboards.
 
 ## 🔮 Future Enhancements
 - Add macros  
