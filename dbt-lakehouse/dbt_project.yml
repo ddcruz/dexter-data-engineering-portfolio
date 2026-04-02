@@ -1,0 +1,38 @@
+name: dbt_lakehouse
+version: 1.0.0
+config-version: 2
+
+profile: lakehouse_dbt
+
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+snapshot-paths: ["snapshots"]
+
+target-path: "target"
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+models:
+  dbt_lakehouse:
+    +persist_docs:
+      relation: true
+      columns: true
+    bronze:
+      +materialized: view
+      +schema: bronze
+      +tags: ["bronze"]
+    silver:
+      +materialized: view
+      +schema: silver
+      +tags: ["silver"]
+    gold:
+      +materialized: table
+      +schema: gold
+      +tags: ["gold"]
+
+seeds:
+  dbt_lakehouse:
+    +schema: bronze

@@ -1,0 +1,13 @@
+version: 2
+
+models:
+  - name: silver_orders
+    description: Cleaned order data with normalized status and cancellation flag.
+    columns:
+      - name: order_id
+        tests:
+          - not_null
+          - unique
+      - name: is_cancelled
+        tests:
+          - not_null
