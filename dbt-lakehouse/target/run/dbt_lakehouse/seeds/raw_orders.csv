@@ -1,0 +1,22 @@
+
+    
+    
+    
+    create  table `workspace`.`analytics_dev_bronze`.`raw_orders` (`order_id` bigint ,`customer_id` string ,`order_timestamp` timestamp ,`order_status` string ,`amount` double ,`updated_at` timestamp )
+    
+    using delta
+  
+    
+    
+    
+    
+    
+  ;
+    -- dbt seed --
+    
+          insert overwrite `workspace`.`analytics_dev_bronze`.`raw_orders` values
+          (%s,%s,%s,%s,%s,%s),(%s,%s,%s,%s,%s,%s),(%s,%s,%s,%s,%s,%s),(%s,%s,%s,%s,%s,%s),(%s,%s,%s,%s,%s,%s)
+      
+
+;
+  

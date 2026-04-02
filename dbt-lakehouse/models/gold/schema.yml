@@ -1,0 +1,13 @@
+version: 2
+
+models:
+  - name: gold_daily_sales
+    description: Gold-level daily sales aggregate for BI and reporting.
+    columns:
+      - name: order_date
+        tests:
+          - not_null
+          - unique
+      - name: daily_revenue
+        tests:
+          - not_null
