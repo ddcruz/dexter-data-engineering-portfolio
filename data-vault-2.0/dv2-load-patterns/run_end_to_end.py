@@ -31,11 +31,12 @@ spark = SparkSession.builder.getOrCreate()
 def run_sql_file(path: Path) -> None:
     sql_text = path.read_text(encoding="utf-8")
     for statement in [s.strip() for s in sql_text.split(";") if s.strip()]:
+        # print(statement)
         spark.sql(statement)
-
+        
 
 def run_all() -> None:
-    base_dir = Path("/Workspace/Users/dexter.dcruz@gmail.com/repos/dexter-data-engineering-portfolio/data-vault-2.0")
+    base_dir = Path("..").resolve()
 
     run_sql_file(base_dir / "hubs" / "hub_tables.sql")
     run_sql_file(base_dir / "links" / "link_tables.sql")
