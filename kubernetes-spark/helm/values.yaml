@@ -1,0 +1,17 @@
+replicaCount: 1
+
+image:
+  repository: spark-on-k8s
+  tag: v1
+  pullPolicy: IfNotPresent
+
+nameOverride: ""
+fullnameOverride: ""
+
+resources: {}
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
